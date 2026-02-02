@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دستیار هوشمند آموزشی</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 دستیار هوشمند آموزشی</h1>
+            <p>سیستم مدیریت یادگیری هوشمند با قابلیت تبدیل صوت به متن</p>
+        </div>
+
+        <!-- صفحه ورود -->
+        <div class="content" id="loginPage">
+            <h2 style="text-align: center; color: #333; margin-bottom: 30px;">ورود به سیستم</h2>
+            
+            <div style="max-width: 500px; margin: 0 auto;">
+                <div style="background: #f8f9fa; padding: 30px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; color: #333; font-weight: bold; margin-bottom: 10px;">نقش خود را انتخاب کنید:</label>
+                        <select id="roleSelect" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em; background: white;">
+                            <option value="">-- انتخاب کنید --</option>
+                            <option value="student">👨‍🎓 دانشجو</option>
+                            <option value="teacher">👨‍🏫 استاد</option>
+                            <option value="admin">👨‍💼 مدیر سیستم</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin-bottom: 25px;">
+                        <label style="display: block; color: #333; font-weight: bold; margin-bottom: 10px;" id="passwordLabel">شناسه کاربری:</label>
+                        <input type="text" id="userPassword" placeholder="شناسه خود را وارد کنید" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 1em;">
+                        <small id="passwordHint" style="display: block; margin-top: 8px; color: #666; font-size: 0.9em;">
+                            💡 شناسه خود را وارد نمایید
+                        </small>
+                    </div>
+                    
+                    <div id="errorMessage" style="display: none; background: #fee2e2; color: #dc2626; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
+                        ⚠️ شناسه وارد شده صحیح نمی‌باشد!
+                    </div>
+                    
+                    <button onclick="login()" style="width: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px; border-radius: 8px; font-size: 1.1em; font-weight: bold; cursor: pointer; transition: all 0.3s;">
+                        ورود به سیستم 🚀
+                    </button>
+                    
+                    <div style="margin-top: 25px; padding: 20px; background: #e8eaf6; border-radius: 8px; border-right: 4px solid #667eea;">
+                        <strong style="color: #333;">💡 راهنما:</strong>
+                        <ul style="margin-top: 10px; color: #666; line-height: 2; font-size: 0.9em;">
+                            <li><strong>دانشجو:</strong> 40012113, 40012114, 40012115</li>
+                            <li><strong>استاد:</strong> 9001, 9002</li>
+                            <li><strong>مدیر:</strong> admin123</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- پنل دانشجو -->
+        <div class="content dashboard" id="studentDashboard">
+            <div class="dashboard-header">
+                <h2>پنل دانشجو - محمد احمدی</h2>
+                <button class="back-btn" onclick="goBack()">خروج</button>
+            </div>
+
+            <div id="studentCourses">
+                <h3 style="color: #667eea; margin-bottom: 20px;">📚 دروس من</h3>
+                <div class="courses-grid">
+                    <div class="course-card" onclick="showCourseFeatures('student', 'مهندسی نرم‌افزار', 'دکتر احمدی')">
+                        <h3>💻 مهندسی نرم‌افزار</h3>
+                        <p>استاد: دکتر احمدی</p>
+                        <div class="course-info">
+                            <span>واحد: 3</span>
+                            <span>نمره: 18.5</span>
+                        </div>
+                    </div>
+
+                    <div class="course-card" onclick="showCourseFeatures('student', 'پایگاه داده', 'دکتر کریمی')">
+                        <h3>🗄️ پایگاه داده پیشرفته</h3>
+                        <p>استاد: دکتر کریمی</p>
+                        <div class="course-info">
+                            <span>واحد: 3</span>
+                            <span>نمره: 17</span>
+                        </div>
+                    </div>
+
+                    <div class="course-card" onclick="showCourseFeatures('student', 'هوش مصنوعی', 'دکتر محمدی')">
+                        <h3>🤖 هوش مصنوعی</h3>
+                        <p>استاد: دکتر محمدی</p>
+                        <div class="course-info">
+                            <span>واحد: 3</span>
+                            <span>نمره: 19</span>
+                        </div>
+                    </div>
+
+                    <div class="course-card" onclick="showCourseFeatures('student', 'شبکه‌های کامپیوتری', 'دکتر رضایی')">
+                        <h3>🌐 شبکه‌های کامپیوتری</h3>
+                        <p>استاد: دکتر رضایی</p>
+                        <div class="course-info">
+                            <span>واحد: 3</span>
+                            <span>نمره: 16.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section" id="studentFeatures">
+                <div class="dashboard-header">
+                    <h3 id="selectedCourseName" style="color: #667eea;"></h3>
+                    <button class="back-btn" onclick="backToCourses('student')">بازگشت به دروس</button>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-box" onclick="openModal('notesModal')">
+                        <h4>📝 جزوات درس</h4>
+                        <p>دسترسی به جزوات تولید شده توسط هوش مصنوعی</p>
+                    </div>
+
+                    <div class="feature-box" onclick="openModal('summaryModal')">
+                        <h4>📋 خلاصه کلیدی</h4>
+                        <p>نکات مهم و خلاصه‌های درسی</p>
+                    </div>
+
+                    <div class="feature-box" onclick="openModal('quizModal')">
+                        <h4>🎯 آزمون شخصی‌سازی شده</h4>
+                        <p>آزمون‌های هوشمند بر اساس عملکرد شما</p>
+                    </div>
+
+                    <div class="feature-box" onclick="openModal('resultsModal')">
+                        <h4>📊 نمرات و گزارش</h4>
+                        <p>مشاهده نمرات و نمودار پیشرفت</p>
+                    </div>
+
+                    <div class="feature-box" onclick="openModal('exerciseModal')">
+                        <h4>✍️ تمرین‌ها</h4>
+                        <p>تمرین‌ها با تصحیح خودکار</p>
+                    </div>
+
+                    <div class="feature-box" onclick="openModal('chatbotModal')">
+                        <h4>💬 چت‌بات هوشمند</h4>
+                        <p>پرسش سوالات درسی</p>
+                    </div>
+                </div>
+
+                <div class="upload-section" onclick="document.getElementById('audioFileStudent').click()">
+                    <div class="upload-icon">🎤</div>
+                    <h4>بارگذاری فایل صوتی</h4>
+                    <p>فایل صوتی خود را آپلود کنید تا به متن تبدیل شود</p>
+                    <input type="file" id="audioFileStudent" class="file-input" accept="audio/*" onchange="transcribeAudio('student')">
+                    <button class="upload-btn">انتخاب فایل صوتی</button>
+                </div>
+
+                <div class="transcription-result" id="transcriptionResultStudent">
+                    <h4>✅ متن تبدیل شده:</h4>
+                    <p id="transcriptionTextStudent"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- پنل استاد -->
+        <div class="content dashboard" id="teacherDashboard">
+            <div class="dashboard-header">
+                <h2>پنل استاد - دکتر احمدی</h2>
+                <button class="back-btn" onclick="goBack()">خروج</button>
+            </div>
+
+            <div id="teacherCourses">
+                <h3 style="color: #f5576c; margin-bottom: 20px;">📚 دروس من</h3>
+                <div class="courses-grid">
+                    <div class="course-card" onclick="showCourseFeatures('teacher', 'مهندسی نرم‌افزار', 'دکتر احمدی')">
+                        <h3>💻 مهندسی نرم‌افزار</h3>
+                        <p>تعداد دانشجو: 45 نفر</p>
+                        <div class="course-info">
+                            <span>جلسات: 14</span>
+                            <span>میانگین: 17.2</span>
+                        </div>
+                    </div>
+
+                    <div class="course-card" onclick="showCourseFeatures('teacher', 'طراحی الگوریتم', 'دکتر احمدی')">
+                        <h3>⚙️ طراحی الگوریتم</h3>
+                        <p>تعداد دانشجو: 38 نفر</p>
+                        <div class="course-info">
+                            <span>جلسات: 12</span>
+                            <span>میانگین: 16.8</span>
+                        </div>
+                    </div>
+
+                    <div class="course-card" onclick="showCourseFeatures('teacher', 'ساختمان داده', 'دکتر احمدی')">
+                        <h3>📊 ساختمان داده</h3>
+                        <p>تعداد دانشجو: 52 نفر</p>
+                        <div class="course-info">
+                            <span>جلسات: 16</span>
+                            <span>میانگین: 15.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section" id="teacherFeatures">
+                <div class="dashboard-header">
+                    <h3 id="selectedCourseNameTeacher" style="color: #f5576c;"></h3>
+                    <button class="back-btn" onclick="backToCourses('teacher')">بازگشت به دروس</button>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="openModal('studentsModal')">
+                        <h4>👥 مشاهده دانشجویان</h4>
+                        <p>لیست دانشجویان و نمرات</p>
+                    </div>
+
+                    <div class="feature-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="openModal('activityModal')">
+                        <h4>📈 فعالیت دانشجویان</h4>
+                        <p>گزارش حضور و فعالیت ماهانه</p>
+                    </div>
+
+                    <div class="feature-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="openModal('notesModal')">
+                        <h4>📄 مشاهده جزوات</h4>
+                        <p>جزوات تولید شده از محتوا</p>
+                    </div>
+
+                    <div class="feature-box" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);" onclick="openModal('summaryModal')">
+                        <h4>📋 خلاصه‌ها</h4>
+                        <p>نکات کلیدی دروس</p>
+                    </div>
+                </div>
+
+                <div class="upload-section" onclick="document.getElementById('audioFileTeacher').click()">
+                    <div class="upload-icon">🎙️</div>
+                    <h4>بارگذاری فایل سخنرانی</h4>
+                    <p>فایل صوتی درس را آپلود کنید تا جزوه تولید شود</p>
+                    <input type="file" id="audioFileTeacher" class="file-input" accept="audio/*" onchange="transcribeAudio('teacher')">
+                    <button class="upload-btn">انتخاب فایل صوتی</button>
+                </div>
+
+                <div class="transcription-result" id="transcriptionResultTeacher">
+                    <h4>✅ جزوه تولید شده:</h4>
+                    <p id="transcriptionTextTeacher"></p>
+                    <button class="btn" onclick="alert('جزوه ذخیره شد!')">ذخیره جزوه</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- پنل ادمین -->
+        <div class="content dashboard" id="adminDashboard">
+            <div class="dashboard-header">
+                <h2>پنل مدیریت سیستم</h2>
+                <button class="back-btn" onclick="goBack()">خروج</button>
+            </div>
+
+            <h3 style="color: #00f2fe; margin-bottom: 20px;">⚙️ مدیریت سیستم</h3>
+            <div class="features-grid">
+                <div class="feature-box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);" onclick="openModal('studentsModal')">
+                    <h4>👥 مدیریت دانشجویان</h4>
+                    <p>مشاهده و ویرایش اطلاعات دانشجویان</p>
+                </div>
+
+                <div class="feature-box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);" onclick="openModal('activityModal')">
+                    <h4>📊 گزارش‌های جامع</h4>
+                    <p>آمار و گزارش فعالیت سیستم</p>
+                </div>
+
+                <div class="feature-box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);" onclick="openModal('notesModal')">
+                    <h4>📄 مدیریت محتوا</h4>
+                    <p>مشاهده و مدیریت جزوات</p>
+                </div>
+
+                <div class="feature-box" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <h4>⚙️ تنظیمات</h4>
+                    <p>تنظیمات کلی سیستم</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    
+    <!-- Modal جزوات -->
+    <div id="notesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('notesModal')">&times;</span>
+            <h2>📝 جزوات درس</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div style="background: #f0f4ff; padding: 15px; border-radius: 8px; margin: 20px 0;">
+                <p style="color: #667eea;">🤖 این جزوه توسط هوش مصنوعی از محتوای صوتی تولید شده است</p>
+            </div>
+            
+            <h3 style="color: #333; margin: 20px 0;">فصل اول: مقدمه‌ای بر Use Case Diagram</h3>
+            <p style="line-height: 1.8; color: #666;">
+                Use Case Diagram یکی از مهم‌ترین دیاگرام‌های UML است که برای نمایش تعامل کاربران (Actors) با سیستم استفاده می‌شود. 
+                این دیاگرام به تحلیلگران و طراحان سیستم کمک می‌کند تا الزامات عملکردی سیستم را به صورت بصری نمایش دهند.
+            </p>
+            
+            <h3 style="color: #333; margin: 20px 0;">عناصر اصلی:</h3>
+            <ul style="line-height: 2; color: #666; padding-right: 20px;">
+                <li><strong>Actor:</strong> نماینده کاربران یا سیستم‌های خارجی</li>
+                <li><strong>Use Case:</strong> عملکرد خاصی که سیستم انجام می‌دهد</li>
+                <li><strong>Relationships:</strong> روابط Include و Extend</li>
+            </ul>
+            
+            <button class="btn">دانلود PDF</button>
+            <button class="btn" style="background: #10b981;">اشتراک‌گذاری</button>
+        </div>
+    </div>
+
+    <!-- Modal خلاصه -->
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('summaryModal')">&times;</span>
+            <h2>📋 خلاصه کلیدی درس</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 12px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">نکات کلیدی:</h3>
+                <ul style="line-height: 2; color: #333;">
+                    <li>✓ Use Case برای نمایش عملکردهای سیستم استفاده می‌شود</li>
+                    <li>✓ Actor نماینده کاربران یا سیستم‌های خارجی است</li>
+                    <li>✓ Include برای نمایش وابستگی اجباری به کار می‌رود</li>
+                    <li>✓ Extend برای عملکردهای اختیاری استفاده می‌شود</li>
+                    <li>✓ System Boundary محدوده سیستم را مشخص می‌کند</li>
+                </ul>
+            </div>
+            
+            <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin: 20px 0; border-right: 4px solid #ffc107;">
+                <strong>💡 نکته مهم:</strong> همیشه ابتدا Actors را شناسایی کنید، سپس Use Case ها را تعریف نمایید.
+            </div>
+            
+            <button class="btn">صادرات PDF</button>
+        </div>
+    </div>
+
+    <!-- Modal آزمون -->
+    <div id="quizModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('quizModal')">&times;</span>
+            <h2>🎯 آزمون شخصی‌سازی شده</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div class="quiz-question">
+                <h3 style="color: #333; margin-bottom: 15px;">سوال 1: Use Case Diagram برای چه منظوری استفاده می‌شود؟</h3>
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        الف) نمایش ساختار کلاس‌ها
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        ب) نمایش تعامل کاربر با سیستم ✓
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        ج) نمایش جریان داده
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        د) نمایش توالی پیام‌ها
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn" onclick="alert('✅ پاسخ صحیح است! نمره: 5/5')">ثبت پاسخ</button>
+            <button class="btn" style="background: #6c757d;">سوال بعدی</button>
+        </div>
+    </div>
+
+    <!-- Modal نتایج -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('resultsModal')">&times;</span>
+            <h2>📊 گزارش عملکرد</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div class="chart-container">
+                <h3 style="color: #333; margin-bottom: 20px;">میانگین نمرات</h3>
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>مهندسی نرم‌افزار</span>
+                        <span style="font-weight: bold; color: #10b981;">18.5</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92.5%;">92.5%</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>پایگاه داده</span>
+                        <span style="font-weight: bold; color: #10b981;">17</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%;">85%</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>هوش مصنوعی</span>
+                        <span style="font-weight: bold; color: #10b981;">19</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 95%;">95%</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 30px; padding: 20px; background: #f0f4ff; border-radius: 12px;">
+                    <div style="font-size: 3em; color: #667eea; font-weight: bold;">18.16</div>
+                    <p style="color: #666; margin-top: 10px;">میانگین کل</p>
+                </div>
+            </div>
+            
+            <button class="btn">دانلود گزارش کامل</button>
+        </div>
+    </div>
+
+    <!-- Modal تمرین -->
+    <div id="exerciseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('exerciseModal')">&times;</span>
+            <h2>✍️ تمرین و تصحیح خودکار</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 20px 0;">
+                <h3 style="color: #333; margin-bottom: 15px;">تمرین: طراحی Use Case Diagram</h3>
+                <p style="color: #666; line-height: 1.8;">
+                    یک Use Case Diagram برای سیستم کتابخانه طراحی کنید که شامل موارد زیر باشد:
+                </p>
+                <ul style="line-height: 2; color: #666; margin-top: 10px; padding-right: 20px;">
+                    <li>جستجوی کتاب</li>
+                    <li>امانت کتاب</li>
+                    <li>بازگشت کتاب</li>
+                    <li>مدیریت کتاب‌ها (توسط کتابدار)</li>
+                </ul>
+            </div>
+            
+            <div class="input-group">
+                <label style="color: #333; font-weight: bold; display: block; margin-bottom: 10px;">پاسخ شما:</label>
+                <textarea placeholder="پاسخ خود را اینجا بنویسید..."></textarea>
+            </div>
+            
+            <button class="btn" onclick="alert('✅ تمرین ارسال شد! هوش مصنوعی در حال تصحیح است...\n\n📝 نمره: 17/20\n\n💡 بازخورد: عملکرد خوبی داشتید. توصیه می‌شود رابطه Include را بیشتر توضیح دهید.')">ارسال و تصحیح</button>
+        </div>
+    </div>
+
+    <!-- Modal چت‌بات -->
+    <div id="chatbotModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('chatbotModal')">&times;</span>
+            <h2>💬 دستیار هوشمند درسی</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div class="chat-box" id="chatBox">
+                <div class="chat-message bot">
+                    سلام! من دستیار هوشمند درس شما هستم. چطور می‌تونم کمکتون کنم؟ 🤖
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" id="chatInput" placeholder="سوال خود را بپرسید..." onkeypress="if(event.key==='Enter') sendMessage()">
+            </div>
+            
+            <button class="btn" onclick="sendMessage()">ارسال</button>
+            <button class="btn" style="background: #10b981;" onclick="document.getElementById('voiceInput').click()">🎤 ضبط صوتی</button>
+            <input type="file" id="voiceInput" class="file-input" accept="audio/*" onchange="transcribeVoiceQuestion()">
+        </div>
+    </div>
+
+    <!-- Modal لیست دانشجویان -->
+    <div id="studentsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('studentsModal')">&times;</span>
+            <h2>👥 لیست دانشجویان</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div class="student-list">
+                <div class="student-item">
+                    <div class="student-info">
+                        <h4>محمد احمدی</h4>
+                        <p>کد دانشجویی: 40012113</p>
+                    </div>
+                    <div class="student-grade">18.5</div>
+                </div>
+                
+                <div class="student-item">
+                    <div class="student-info">
+                        <h4>زهرا کریمی</h4>
+                        <p>کد دانشجویی: 40012114</p>
+                    </div>
+                    <div class="student-grade">19.0</div>
+                </div>
+                
+                <div class="student-item">
+                    <div class="student-info">
+                        <h4>علی رضایی</h4>
+                        <p>کد دانشجویی: 40012115</p>
+                    </div>
+                    <div class="student-grade">17.5</div>
+                </div>
+                
+                <div class="student-item">
+                    <div class="student-info">
+                        <h4>فاطمه محمدی</h4>
+                        <p>کد دانشجویی: 40012116</p>
+                    </div>
+                    <div class="student-grade">16.0</div>
+                </div>
+            </div>
+            
+            <button class="btn">صادرات Excel</button>
+        </div>
+    </div>
+
+    <!-- Modal فعالیت -->
+    <div id="activityModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('activityModal')">&times;</span>
+            <h2>📈 گزارش فعالیت دانشجویان</h2>
+            <hr style="margin: 20px 0; border: none; height: 1px; background: #e0e0e0;">
+            
+            <div class="chart-container">
+                <h3 style="color: #333; margin-bottom: 20px;">فعالیت ماهانه</h3>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>شرکت در آزمون‌ها</span>
+                        <span style="font-weight: bold;">38 از 45 نفر</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 84%;">84%</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>تحویل تمرین‌ها</span>
+                        <span style="font-weight: bold;">42 از 45 نفر</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 93%;">93%</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>استفاده از چت‌بات</span>
+                        <span style="font-weight: bold;">35 از 45 نفر</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%;">78%</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>دانلود جزوات</span>
+                        <span style="font-weight: bold;">45 از 45 نفر</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 100%;">100%</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn">دانلود گزارش کامل</button>
+        </div>
+    </div>
+
+    <script>
+        // Database شناسه‌های معتبر
+        const validCredentials = {
+            student: ['40012113', '40012114', '40012115', '40012116'],
+            teacher: ['9001', '9002', '9003'],
+            admin: ['admin123', 'admin456']
+        };
+        
+        const userNames = {
+            '40012113': 'محمد احمدی',
+            '40012114': 'زهرا کریمی',
+            '40012115': 'علی رضایی',
+            '40012116': 'فاطمه محمدی',
+            '9001': 'دکتر احمدی',
+            '9002': 'دکتر کریمی',
+            '9003': 'دکتر محمدی',
+            'admin123': 'مدیر سیستم',
+            'admin456': 'مدیر ارشد'
+        };
+
+        let currentCourse = '';
+        let currentTeacher = '';
+        let currentUser = '';
+
+        // تغییر placeholder بر اساس نقش انتخابی
+        document.getElementById('roleSelect').addEventListener('change', function() {
+            const role = this.value;
+            const passwordInput = document.getElementById('userPassword');
+            const passwordLabel = document.getElementById('passwordLabel');
+            const passwordHint = document.getElementById('passwordHint');
+            
+            if (role === 'student') {
+                passwordLabel.textContent = 'شماره دانشجویی:';
+                passwordInput.placeholder = 'مثال: 40012113';
+                passwordHint.innerHTML = '💡 شماره دانشجویی خود را وارد کنید';
+            } else if (role === 'teacher') {
+                passwordLabel.textContent = 'شناسه کارمندی:';
+                passwordInput.placeholder = 'مثال: 9001';
+                passwordHint.innerHTML = '💡 شناسه کارمندی خود را وارد کنید';
+            } else if (role === 'admin') {
+                passwordLabel.textContent = 'شناسه ادمین:';
+                passwordInput.placeholder = 'مثال: admin123';
+                passwordHint.innerHTML = '💡 شناسه مدیریتی خود را وارد کنید';
+            }
+            
+            document.getElementById('errorMessage').style.display = 'none';
+        });
+
+        // ورود با کلید Enter
+        document.getElementById('userPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+
+        async function login() {
+            const role = document.getElementById('roleSelect').value;
+            const id = document.getElementById('userPassword').value.trim();
+            const errorMessage = document.getElementById('errorMessage');
+        
+            if (!role || !id) {
+                errorMessage.textContent = '⚠️ لطفاً همه فیلدها را پر کنید';
+                errorMessage.style.display = 'block';
+                return;
+            }
+        
+            try {
+                const res = await fetch('http://localhost:4000/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ id, role })
+                });
+            
+                if (!res.ok) throw new Error();
+            
+                const data = await res.json();
+                const token = localStorage.getItem('token');
+
+                fetch('http://localhost:5000/api/test/me', {
+                  headers: {
+                    'Authorization': 'Bearer ' + token
+                  }
+                });
+            
+                // ذخیره توکن
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('user', JSON.stringify(data.user));
+            
+                currentUser = data.user.name;
+                errorMessage.style.display = 'none';
+                document.getElementById('loginPage').classList.add('hidden');
+            
+                if (role === 'student') {
+                    document.getElementById('studentDashboard').classList.add('active');
+                    document.querySelector('#studentDashboard .dashboard-header h2').textContent =
+                        'پنل دانشجو - ' + currentUser;
+                } else if (role === 'teacher') {
+                    document.getElementById('teacherDashboard').classList.add('active');
+                    document.querySelector('#teacherDashboard .dashboard-header h2').textContent =
+                        'پنل استاد - ' + currentUser;
+                } else if (role === 'admin') {
+                    document.getElementById('adminDashboard').classList.add('active');
+                }
+            
+            } catch (e) {
+                errorMessage.textContent = '⚠️ خطا در ورود به سیستم';
+                errorMessage.style.display = 'block';
+            }
+        }
+
+
+        function goBack() {
+            document.querySelectorAll('.dashboard').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById('loginPage').classList.remove('hidden');
+            
+            // Reset form
+            document.getElementById('roleSelect').value = '';
+            document.getElementById('userPassword').value = '';
+            document.getElementById('errorMessage').style.display = 'none';
+            
+            // Reset views
+            document.querySelectorAll('.features-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.getElementById('studentCourses').style.display = 'block';
+            document.getElementById('teacherCourses').style.display = 'block';
+        }
+
+        function showCourseFeatures(role, courseName, teacher) {
+            currentCourse = courseName;
+            currentTeacher = teacher || '';
+            
+            if (role === 'student') {
+                document.getElementById('studentCourses').style.display = 'none';
+                document.getElementById('studentFeatures').classList.add('active');
+                document.getElementById('selectedCourseName').textContent = '📚 ' + courseName + ' - ' + currentTeacher;
+            } else if (role === 'teacher') {
+                document.getElementById('teacherCourses').style.display = 'none';
+                document.getElementById('teacherFeatures').classList.add('active');
+                document.getElementById('selectedCourseNameTeacher').textContent = '📚 ' + courseName;
+            }
+        }
+
+        function backToCourses(role) {
+            if (role === 'student') {
+                document.getElementById('studentFeatures').classList.remove('active');
+                document.getElementById('studentCourses').style.display = 'block';
+                document.getElementById('transcriptionResultStudent').classList.remove('show');
+            } else if (role === 'teacher') {
+                document.getElementById('teacherFeatures').classList.remove('active');
+                document.getElementById('teacherCourses').style.display = 'block';
+                document.getElementById('transcriptionResultTeacher').classList.remove('show');
+            }
+        }
+
+        function transcribeAudio(role) {
+            const file = role === 'student' ? 
+                document.getElementById('audioFileStudent').files[0] : 
+                document.getElementById('audioFileTeacher').files[0];
+            
+            if (file) {
+                setTimeout(() => {
+                    if (role === 'student') {
+                        const sampleText = `سوال من در مورد Use Case Diagram است. می‌خواستم بدونم که چه تفاوتی بین Include و Extend وجود داره؟ و در چه مواقعی از هر کدوم استفاده می‌کنیم؟ ممنون می‌شم اگه با مثال توضیح بدید.`;
+                        document.getElementById('transcriptionTextStudent').textContent = sampleText;
+                        document.getElementById('transcriptionResultStudent').classList.add('show');
+                    } else {
+                        const sampleText = `📚 جزوه جلسه چهارم - Use Case Diagram
+
+🎯 موضوع: تفاوت Include و Extend
+
+در این جلسه به بررسی روابط در Use Case Diagram پرداختیم:
+
+1️⃣ رابطه Include:
+- زمانی استفاده می‌شود که یک Use Case به طور اجباری به Use Case دیگری نیاز دارد
+- مثال: در سیستم بانکی، "برداشت پول" حتماً نیاز به "احراز هویت" دارد
+
+2️⃣ رابطه Extend:
+- برای عملکردهای اختیاری استفاده می‌شود
+- مثال: در سیستم خرید، "اعمال کد تخفیف" یک عملکرد اختیاری است
+
+💡 نکته کلیدی: Include اجباری است، Extend اختیاری.`;
+                        
+                        document.getElementById('transcriptionTextTeacher').textContent = sampleText;
+                        document.getElementById('transcriptionResultTeacher').classList.add('show');
+                    }
+                }, 2000);
+            }
+        }
+
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        function selectOption(element) {
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const chatBox = document.getElementById('chatBox');
+            
+            if (input.value.trim()) {
+                // Add user message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'chat-message user';
+                userMsg.textContent = input.value;
+                chatBox.appendChild(userMsg);
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'chat-message bot';
+                    
+                    const responses = [
+                        'Use Case Diagram برای نمایش تعامل کاربران با سیستم استفاده می‌شود. Actor نماینده کاربر و Use Case نماینده عملکرد سیستم است.',
+                        'تفاوت Include و Extend این است: Include اجباری است و Extend اختیاری. مثلاً احراز هویت Include است ولی اعمال تخفیف Extend.',
+                        'System Boundary محدوده سیستم را مشخص می‌کند و نشان می‌دهد کدام Use Case ها جزء سیستم هستند.'
+                    ];
+                    
+                    botMsg.textContent = responses[Math.floor(Math.random() * responses.length)];
+                    chatBox.appendChild(botMsg);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1000);
+                
+                input.value = '';
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        }
+
+        function transcribeVoiceQuestion() {
+            const file = document.getElementById('voiceInput').files[0];
+            if (file) {
+                setTimeout(() => {
+                    const chatBox = document.getElementById('chatBox');
+                    const userMsg = document.createElement('div');
+                    userMsg.className = 'chat-message user';
+                    userMsg.textContent = '🎤 تفاوت Actor و Use Case چیست؟';
+                    chatBox.appendChild(userMsg);
+                    
+                    setTimeout(() => {
+                        const botMsg = document.createElement('div');
+                        botMsg.className = 'chat-message bot';
+                        botMsg.textContent = 'Actor نماینده کاربران یا سیستم‌های خارجی است که با سیستم تعامل دارند. Use Case نشان‌دهنده عملکردی است که سیستم برای Actor انجام می‌دهد. به عبارت ساده‌تر: Actor "چه کسی" و Use Case "چه کاری" را نشان می‌دهد.';
+                        chatBox.appendChild(botMsg);
+                        chatBox.scrollTop = chatBox.scrollHeight;
+                    }, 1000);
+                    
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1500);
+            }
+        }
+    </script>
+</body>
+</html>
